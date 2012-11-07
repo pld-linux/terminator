@@ -9,10 +9,10 @@ Source0:	http://code.launchpad.net/terminator/trunk/%{version}/+download/%{name}
 Patch0:		%{name}-fix-NewWindow-issue.patch
 URL:		http://www.tenshu.net/terminator
 BuildRequires:	desktop-file-utils
-BuildRequires:	rpm-pythonprov
 BuildRequires:	gettext
 BuildRequires:	intltool
 BuildRequires:	python-devel
+BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.596
 Requires(post,postun):	hicolor-icon-theme
 Requires:	GConf2
@@ -21,8 +21,9 @@ Requires:	gtk+2
 Requires:	python-gnome-bonobo
 Requires:	python-gnome-bonobo-ui
 Requires:	python-gnome-gconf
+Requires:	python-keybinder
 Requires:	python-modules
-Requires:	vte
+Requires:	python-vte0
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -50,7 +51,7 @@ rm -rf $RPM_BUILD_ROOT
 	--optimize=2 \
 	--root=$RPM_BUILD_ROOT
 
-%{__rm} -r $RPM_BUILD_ROOT/%{_datadir}/locale/{jv,ru_RU,tyv}
+%{__rm} -r $RPM_BUILD_ROOT/%{_localedir}/{jv,ru_RU,tyv}
 %{__rm} $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/icon-theme.cache
 
 %py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}
