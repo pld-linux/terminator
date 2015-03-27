@@ -1,13 +1,13 @@
 Summary:	Store and run multiple GNOME terminals in one window
 Name:		terminator
-Version:	0.96
+Version:	0.97
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://code.launchpad.net/terminator/trunk/%{version}/+download/%{name}_%{version}.tar.gz
-# Source0-md5:	070e3878336b341c9e18339d89ba64fe
+Source0:	http://code.launchpad.net/terminator/trunk/%{version}/+download/%{name}-%{version}.tar.gz
+# Source0-md5:	2b32b59c0a5ed2bee45cc57cf861f4d8
 Patch0:		%{name}-fix-NewWindow-issue.patch
-URL:		http://www.tenshu.net/terminator
+URL:		http://gnometerminator.blogspot.com/
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:	intltool
