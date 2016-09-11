@@ -1,7 +1,7 @@
 Summary:	Store and run multiple GNOME terminals in one window
 Name:		terminator
 Version:	0.98
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://code.launchpad.net/terminator/trunk/%{version}/+download/%{name}-%{version}.tar.gz
@@ -48,7 +48,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{py_install}
 
-%{__rm} -r $RPM_BUILD_ROOT/%{_localedir}/{jv,ru_RU,tyv}
+%{__rm} -r $RPM_BUILD_ROOT/%{_localedir}/{jv,ru_RU,su,tyv}
 %{__rm} $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/icon-theme.cache
 
 %py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}
