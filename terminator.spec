@@ -1,11 +1,11 @@
 Summary:	Store and run multiple GNOME terminals in one window
 Name:		terminator
-Version:	0.97
+Version:	0.98
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://code.launchpad.net/terminator/trunk/%{version}/+download/%{name}-%{version}.tar.gz
-# Source0-md5:	2b32b59c0a5ed2bee45cc57cf861f4d8
+# Source0-md5:	241af292fe16bed290052b86adb30b80
 Patch0:		%{name}-fix-NewWindow-issue.patch
 URL:		http://gnometerminator.blogspot.com/
 BuildRequires:	desktop-file-utils
@@ -41,15 +41,12 @@ terminals for different tasks.
 %{__sed} -i '/#! \?\/usr.*/d' terminatorlib/*.py
 
 %build
-%{__python} setup.py build
+%{py_build}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__python} setup.py install \
-	--skip-build \
-	--optimize=2 \
-	--root=$RPM_BUILD_ROOT
+%{py_install}
 
 %{__rm} -r $RPM_BUILD_ROOT/%{_localedir}/{jv,ru_RU,tyv}
 %{__rm} $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/icon-theme.cache
@@ -71,13 +68,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc README COPYING ChangeLog
+%doc README COPYING ChangeLog doc/manual/_build/html
 %attr(755,root,root) %{_bindir}/%{name}
+%attr(755,root,root) %{_bindir}/remotinator
 %{py_sitescriptdir}/*
+%{_datadir}/appdata/terminator.appdata.xml
 %{_desktopdir}/%{name}.desktop
 %{_iconsdir}/hicolor/*/*/%{name}*.png
 %{_iconsdir}/hicolor/*/*/%{name}*.svg
 %{_iconsdir}/hicolor/16x16/status/terminal-bell.png
+%{_iconsdir}/HighContrast/*/*/%{name}*.png
+%{_iconsdir}/HighContrast/*/*/%{name}*.svg
+%{_iconsdir}/HighContrast/16x16/status/terminal-bell.png
 %{_pixmapsdir}/%{name}.png
 %{_mandir}/man1/%{name}.*
 %{_mandir}/man5/%{name}_config.*
