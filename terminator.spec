@@ -1,11 +1,11 @@
 Summary:	Store and run multiple GNOME terminals in one window
 Name:		terminator
-Version:	0.98
-Release:	2
+Version:	1.91
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://code.launchpad.net/terminator/trunk/%{version}/+download/%{name}-%{version}.tar.gz
-# Source0-md5:	241af292fe16bed290052b86adb30b80
+Source0:	http://code.launchpad.net/terminator/gtk3/%{version}/+download/%{name}-%{version}.tar.gz
+# Source0-md5:	2eed999d7a41f2e18eaa511bbbf80f58
 Patch0:		%{name}-fix-NewWindow-issue.patch
 URL:		http://gnometerminator.blogspot.com/
 BuildRequires:	desktop-file-utils
@@ -15,15 +15,13 @@ BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.596
 Requires(post,postun):	hicolor-icon-theme
-Requires:	GConf2
 Requires:	desktop-file-utils
-Requires:	gtk+2
-Requires:	python-gnome-bonobo
-Requires:	python-gnome-bonobo-ui
-Requires:	python-gnome-gconf
-Requires:	python-keybinder
+Requires:	gtk+3
+Requires:	libnotify
+Requires:	keybinder3
 Requires:	python-modules
-Requires:	python-vte0
+Requires:	python-pygobject3
+Requires:	vte
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -68,10 +66,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc README COPYING ChangeLog doc/manual/_build/html
+%doc README COPYING ChangeLog
 %attr(755,root,root) %{_bindir}/%{name}
 %attr(755,root,root) %{_bindir}/remotinator
 %{py_sitescriptdir}/*
+%{_datadir}/terminator
 %{_datadir}/appdata/terminator.appdata.xml
 %{_desktopdir}/%{name}.desktop
 %{_iconsdir}/hicolor/*/*/%{name}*.png
