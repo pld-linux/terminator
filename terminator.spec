@@ -1,13 +1,13 @@
 Summary:	Store and run multiple GNOME terminals in one window
 Name:		terminator
-Version:	1.91
+Version:	2.1.4
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://code.launchpad.net/terminator/gtk3/%{version}/+download/%{name}-%{version}.tar.gz
-# Source0-md5:	2eed999d7a41f2e18eaa511bbbf80f58
+Source0:	https://github.com/gnome-terminator/terminator/archive/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	43205f75db40d27f74cd8fac81b4b887
 Patch0:		%{name}-fix-NewWindow-issue.patch
-URL:		http://gnometerminator.blogspot.com/
+URL:		https://github.com/gnome-terminator/terminator
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:	intltool
@@ -19,9 +19,11 @@ Requires:	desktop-file-utils
 Requires:	gtk+3
 Requires:	libnotify
 Requires:	keybinder3
-Requires:	python-modules
-Requires:	python-pygobject3
-Requires:	vte
+Requires:	python3-configobj
+Requires:	python3-modules
+Requires:	python3-psutil
+Requires:	python3-pygobject3
+Requires:	vte2.90
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -34,24 +36,17 @@ terminals for different tasks.
 
 %prep
 %setup -q
-%patch0
+%patch -P 0
 
 %{__sed} -i '/#! \?\/usr.*/d' terminatorlib/*.py
 
 %build
-%{py_build}
+%py3_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{py_install}
-
-%{__rm} -r $RPM_BUILD_ROOT/%{_localedir}/{jv,ru_RU,su,tyv}
-%{__rm} $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/icon-theme.cache
-
-%py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}
-%py_comp $RPM_BUILD_ROOT%{py_sitescriptdir}
-%py_postclean
+%py3_install
 
 %find_lang %{name}
 
@@ -66,12 +61,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc README COPYING ChangeLog
+%doc AUTHORS CHANGELOG.md README.md
 %attr(755,root,root) %{_bindir}/%{name}
 %attr(755,root,root) %{_bindir}/remotinator
-%{py_sitescriptdir}/*
+%{py3_sitescriptdir}/terminatorlib
+%{py3_sitescriptdir}/terminator-%{version}-py3*.egg-info
 %{_datadir}/terminator
-%{_datadir}/appdata/terminator.appdata.xml
+%{_datadir}/metainfo/terminator.metainfo.xml
 %{_desktopdir}/%{name}.desktop
 %{_iconsdir}/hicolor/*/*/%{name}*.png
 %{_iconsdir}/hicolor/*/*/%{name}*.svg
