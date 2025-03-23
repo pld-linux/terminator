@@ -1,7 +1,7 @@
 Summary:	Store and run multiple GNOME terminals in one window
 Name:		terminator
 Version:	2.1.4
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Applications
 Source0:	https://github.com/gnome-terminator/terminator/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -47,6 +47,8 @@ terminals for different tasks.
 rm -rf $RPM_BUILD_ROOT
 
 %py3_install
+
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{jv,ru_RU,su,tyv}
 
 %find_lang %{name}
 
